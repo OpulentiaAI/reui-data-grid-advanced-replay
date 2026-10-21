@@ -10,7 +10,8 @@ A self-contained recreation of [reui.io/blocks/data-grid/advanced](https://reui.
 - preview iframes are loaded through `srcdoc` (same origin as the shell, so `file://` works) and reuse the shell's decoded data;
 - scripts load from blob URLs while reporting their original paths; images, `fetch` and XHR are answered from the recording;
 - `URL` resolves against the original reui.io address when the document base is `about:srcdoc`; `postMessage` targets are normalized for opaque origins;
-- Next's router is initialized with the original page URL (one patched reference: `location:window.location`), and history updates never change the real address bar.
+- Next's router is initialized with the original page URL (one patched reference: `location:window.location`), and history updates never change the real address bar;
+- three `postMessage(..., window.location.origin)` calls are rewritten to `"*"` and `null`-origin preview URLs are normalized, so it also runs nested inside sandboxed hosts like MagicPath.
 A Content-Security-Policy blocks all network access. Links, sign-in, Code tabs and purchase flows show a notice.
 
 ## Verification

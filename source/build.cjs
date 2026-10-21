@@ -37,6 +37,8 @@ const b64fetch = async (u) => { const r = await fetch(u); if (!r.ok) throw new E
   const main = cap.loc;
   const scripts = {}; let patched = 0; for (const [u, t] of Object.entries(cap.scripts)) if (t) { scripts[u] = t.split('location:window.location}').join('location:(window.__lrLocation||window.location)}'); if (scripts[u] !== t) patched++; }
   if (patched !== 1) throw new Error('router location patch count ' + patched); report.routerPatch = patched;
+  let pm = 0; for (const u of Object.keys(scripts)) { const t = scripts[u]; const n = t.replace(/(postMessage\([^;]{0,200}?),window\.location\.origin\)/g, (m, a) => { pm++; return a + ',"*")'; }); scripts[u] = n; }
+  if (pm < 3) throw new Error('postMessage patch count ' + pm); report.postMessagePatch = pm;
   const apis = {}; for (const [u, r] of Object.entries(api)) if (r.body != null) apis[u] = r;
   const data = { main, pages: Object.fromEntries(Object.entries(pages).map(([k, v]) => [k, k === main ? { order: v.order } : v])), scripts, css, images, api: apis, capturedAt: new Date().toISOString() };
   const gz = zlib.gzipSync(Buffer.from(JSON.stringify(data)), { level: 9 }); const b64 = gz.toString('base64');

@@ -45,5 +45,6 @@
   "scripts": 100,
   "images": 41
  },
- "routerPatch": 1
+ "routerPatch": 1,
+ "postMessagePatch": 3
 }
