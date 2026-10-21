@@ -1,0 +1,49 @@
+{
+ "pages": {
+  "/blocks/data-grid/advanced": {
+   "scripts": 42,
+   "kb": 8579
+  },
+  "/preview/base/data-grid-advanced-1?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  },
+  "/preview/base/data-grid-advanced-2?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  },
+  "/preview/base/data-grid-advanced-3?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  },
+  "/preview/base/data-grid-advanced-4?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  },
+  "/preview/base/data-grid-advanced-5?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  },
+  "/preview/base/data-grid-advanced-6?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  },
+  "/preview/base/data-grid-advanced-7?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  },
+  "/preview/base/data-grid-advanced-9?embed=1": {
+   "scripts": 19,
+   "kb": 34
+  }
+ },
+ "fonts": 133,
+ "flags": 34,
+ "sizes": {
+  "gzMB": 6.68,
+  "htmlMB": 17.3,
+  "scripts": 100,
+  "images": 41
+ },
+ "routerPatch": 1
+}

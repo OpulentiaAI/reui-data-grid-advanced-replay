@@ -1,0 +1,8 @@
+const pw=require('../devin-app-full/tools/node_modules/playwright-core'),path=require('path');
+(async()=>{const b=await pw.chromium.launch({executablePath:process.env.HOME+'/Library/Caches/ms-playwright/chromium_headless_shell-1243/chrome-headless-shell-mac-arm64/chrome-headless-shell'});
+const p=await b.newPage({viewport:{width:1440,height:900}});const net=[],errs=[];p.on('request',r=>{if(!/^(data|blob|file|about):/.test(r.url()))net.push(r.url())});p.on('pageerror',e=>errs.push(e.message.slice(0,160)));
+await p.goto('file://'+path.resolve('dist/offline.html'));await p.waitForTimeout(6000);
+await p.evaluate(async()=>{for(let y=0;y<=document.documentElement.scrollHeight;y+=500){scrollTo(0,y);await new Promise(r=>setTimeout(r,300))}scrollTo(0,0)});await p.waitForTimeout(5000);
+const st=await p.evaluate(()=>{const R=window.__reuiReplay;const fr=[...document.querySelectorAll('iframe')].map(f=>{let s='?';try{const w=f.contentWindow,d=f.contentDocument;s=(w.__reuiReplay?((w.__reuiReplay.ready?'R':'-')+(w.__reuiReplay.error?'E':'')):'noboot')+' rows='+d.querySelectorAll('tr,[role=row]').length+' blk='+(w.__reuiReplay?w.__reuiReplay.blocked.filter(x=>!/_rsc|frame /.test(x)).length:0)}catch(e){s='xo '+e.message.slice(0,40)}return s});return{ready:R.ready,err:R.error||null,served:R.served,blocked:R.blocked.filter(x=>!/_rsc/.test(x)).slice(0,8),frames:fr,h1:document.querySelector('h1')&&document.querySelector('h1').textContent,sh:document.documentElement.scrollHeight}});
+console.log(JSON.stringify({st,net:net.slice(0,6),netCount:net.length,errs:errs.slice(0,6)},null,1));
+await p.screenshot({path:'shot-top.jpg',type:'jpeg',quality:70});await b.close()})().catch(e=>{console.error(e);process.exit(1)});
